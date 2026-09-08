@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Reklam Botu</title>
+
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background: #111827;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        .box {
+            max-width: 400px;
+            margin: 40px auto;
+            padding: 25px;
+            background: #1f2937;
+            border-radius: 20px;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #d1d5db;
+        }
+
+        .balance {
+            font-size: 30px;
+            font-weight: bold;
+            margin: 25px 0;
+        }
+
+        button {
+            width: 100%;
+            padding: 16px;
+            margin-top: 15px;
+            border: none;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: bold;
+            background: #2563eb;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        .info {
+            margin-top: 20px;
+            color: #9ca3af;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="box">
+
+        <h1>📺 Reklam Botu</h1>
+
+        <p class="subtitle">
+            Reklama bax və bonus qazan!
+        </p>
+
+        <div class="balance">
+            💰 0.00 AZN
+        </div>
+
+        <button onclick="watchAd()">
+            📺 Reklama bax
+        </button>
+
+        <div class="info">
+            1 reklam = 0.05 AZN<br>
+            Gündə maksimum 100 reklam<br>
+            Minimum çıxarış = 10 AZN
+        </div>
+
+    </
