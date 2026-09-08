@@ -2,15 +2,15 @@
 <html lang="az">
 <head>
     <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Reklam Botu</title>
 
+    <!-- Telegram Mini App -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+    <!-- AdsGram -->
+    <script src="https://sad.adsgram.ai/js/sad.min.js"></script>
 
     <style>
         body {
@@ -28,7 +28,7 @@
             padding: 25px;
             background: #1f2937;
             border-radius: 20px;
-            box-sizing: border-box;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
 
         h1 {
@@ -55,11 +55,14 @@
             font-weight: bold;
             background: #2563eb;
             color: white;
-            cursor: pointer;
         }
 
         button:active {
             transform: scale(0.98);
+        }
+
+        button:disabled {
+            background: #4b5563;
         }
 
         .info {
@@ -67,31 +70,86 @@
             color: #9ca3af;
             line-height: 1.6;
         }
+
+        #status {
+            margin-top: 20px;
+            min-height: 24px;
+            color: #60a5fa;
+            font-weight: bold;
+        }
     </style>
 </head>
 
 <body>
 
-    <div class="box">
+<div class="box">
 
-        <h1>📺 Reklam Botu</h1>
+    <h1>📺 Reklam Botu</h1>
 
-        <p class="subtitle">
-            Reklama bax və bonus qazan!
-        </p>
+    <p class="subtitle">
+        Reklama bax və pul qazan!
+    </p>
 
-        <div class="balance">
-            💰 0.00 AZN
-        </div>
+    <div class="balance">
+        💰 0.00 AZN
+    </div>
 
-        <button onclick="watchAd()">
-            📺 Reklama bax
-        </button>
+    <button id="watchButton" onclick="watchAd()">
+        📺 Reklama bax
+    </button>
 
-        <div class="info">
-            1 reklam = 0.05 AZN<br>
-            Gündə maksimum 100 reklam<br>
-            Minimum çıxarış = 10 AZN
-        </div>
+    <div id="status"></div>
 
-    </
+    <div class="info">
+        1 reklam = 0.05 AZN<br>
+        Gündə maksimum 100 reklam
+    </div>
+
+</div>
+
+<script>
+    const tg = window.Telegram.WebApp;
+
+    tg.ready();
+    tg.expand();
+
+    // AdsGram Block ID
+    const AdController = window.Adsgram.init({
+        blockId: "46924"
+    });
+
+    async function watchAd() {
+
+        const button = document.getElementById("watchButton");
+        const status = document.getElementById("status");
+
+        button.disabled = true;
+        status.innerText = "📺 Reklam hazırlanır...";
+
+        try {
+
+            await AdController.show();
+
+            // Reklam sona qədər tamamlandı
+            status.innerText = "✅ Reklam tamamlandı!";
+
+            setTimeout(() => {
+                status.innerText = "";
+            }, 3000);
+
+        } catch (error) {
+
+            console.log(error);
+
+            status.innerText =
+                "❌ Reklam göstərilmədi. Bir az sonra yenidən yoxla.";
+
+        } finally {
+
+            button.disabled = false;
+        }
+    }
+</script>
+
+</body>
+</html>
