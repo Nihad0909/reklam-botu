@@ -297,6 +297,7 @@ async def referral(callback: CallbackQuery):
 # =========================
 # START BOT
 # =========================
+
 def run_flask():
     app.run(
         host="0.0.0.0",
@@ -304,13 +305,15 @@ def run_flask():
         debug=False,
         use_reloader=False
     )
-async def main():
 
+
+async def main():
     print("🤖 Reklam botu başladı!")
     print("💰 Reklam reward: 0.05 AZN")
-    print("📺 Günlük limit: 100")
+    print("📺 Gündəlik limit: 100")
     print("💳 Minimum çıxarış: 10 AZN")
-threading.Thread(target=run_flask, daemon=True).start()
+
+    threading.Thread(target=run_flask, daemon=True).start()
     await dp.start_polling(bot)
 
 
