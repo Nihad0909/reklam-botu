@@ -1,5 +1,6 @@
 import asyncio
 import sqlite3
+import os
 from datetime import date
 import threading
 
@@ -15,7 +16,7 @@ from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 # BOT TOKEN
 # =========================
 
-TOKEN = "8607135734:AAEvOj-ef3uAodzVVRvghKCwmswOsF7kkso"
+TOKEN = os.getenv("BOT_TOKEN")
 
 
 # =========================
