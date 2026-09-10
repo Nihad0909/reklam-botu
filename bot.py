@@ -40,7 +40,7 @@ dp = Dispatcher()
 # DATABASE
 # =========================
 
-db = sqlite3.connect("bot.db")
+db = sqlite3.connect("bot.db", check_same_thread=False)
 cursor = db.cursor()
 
 cursor.execute("""
