@@ -1,165 +1,178 @@
 <!DOCTYPE html>
 <html lang="az">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Reklam Botu</title>
+<title>Reklam Botu</title>
 
-    <!-- Telegram Mini App -->
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script src="https://sad.adsgram.ai/js/sad.min.js"></script>
 
-    <!-- AdsGram -->
-    <script src="https://sad.adsgram.ai/js/sad.min.js"></script>
+<style>
+body {
+    margin: 0;
+    padding: 20px;
+    background: #111827;
+    color: white;
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
 
-    <style>
-        body {
-            margin: 0;
-            padding: 20px;
-            background: #111827;
-            color: white;
-            font-family: Arial, sans-serif;
-            text-align: center;
-        }
+.box {
+    max-width: 400px;
+    margin: 40px auto;
+    padding: 25px;
+    background: #1f2937;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
 
-        .box {
-            max-width: 400px;
-            margin: 40px auto;
-            padding: 25px;
-            background: #1f2937;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        }
+h1 {
+    margin-bottom: 10px;
+}
 
-        h1 {
-            margin-bottom: 10px;
-        }
+.subtitle {
+    color: #d1d5db;
+}
 
-        .subtitle {
-            color: #d1d5db;
-        }
+.balance {
+    font-size: 30px;
+    font-weight: bold;
+    margin: 25px 0;
+}
 
-        .balance {
-            font-size: 30px;
-            font-weight: bold;
-            margin: 25px 0;
-        }
+button {
+    width: 100%;
+    padding: 16px;
+    margin-top: 15px;
+    border: none;
+    border-radius: 12px;
+    font-size: 18px;
+    font-weight: bold;
+    background: #2563eb;
+    color: white;
+}
 
-        button {
-            width: 100%;
-            padding: 16px;
-            margin-top: 15px;
-            border: none;
-            border-radius: 12px;
-            font-size: 18px;
-            font-weight: bold;
-            background: #2563eb;
-            color: white;
-        }
+button:active {
+    transform: scale(0.98);
+}
 
-        button:active {
-            transform: scale(0.98);
-        }
+button:disabled {
+    background: #4b5563;
+}
 
-        button:disabled {
-            background: #4b5563;
-        }
+.info {
+    margin-top: 20px;
+    color: #9ca3af;
+    line-height: 1.6;
+}
 
-        .info {
-            margin-top: 20px;
-            color: #9ca3af;
-            line-height: 1.6;
-        }
+#status {
+    margin-top: 20px;
+    min-height: 24px;
+    color: #60a5fa;
+    font-weight: bold;
+}
+</style>
 
-        #status {
-            margin-top: 20px;
-            min-height: 24px;
-            color: #60a5fa;
-            font-weight: bold;
-        }
-    </style>
 </head>
 
 <body>
 
 <div class="box">
 
-    <h1>📺 Reklam Botu</h1>
+<h1>📺 Reklam Botu</h1>
 
-    <p class="subtitle">
-        Reklama bax və pul qazan!
-    </p>
+<p class="subtitle">
+Reklama bax və pul qazan!
+</p>
 
-    <div class="balance">
-        💰 0.00 AZN
-    </div>
+<div class="balance">
+💰 0.00 AZN
+</div>
 
-    <button id="watchButton" onclick="watchAd()">
-        📺 Reklama bax
-    </button>
+<button id="watchButton" onclick="watchAd()">
+📺 Reklama bax
+</button>
 
-    <div id="status"></div>
+<div id="status"></div>
 
-    <div class="info">
-        1 reklam = 0.05 AZN<br>
-        Gündə maksimum 100 reklam
-    </div>
+<div class="info">
+1 reklam = 0.05 AZN<br>
+Gündə maksimum 100 reklam
+</div>
 
 </div>
 
 <script>
-    const tg = window.Telegram.WebApp;
 
-    tg.ready();
-    tg.expand();
+const tg = window.Telegram.WebApp;
 
-    // AdsGram Block ID
-    const AdController = window.Adsgram.init({
-        blockId: "46924"
-    });
+tg.ready();
+tg.expand();
 
-    async function watchAd() {
+const AdController = window.Adsgram.init({
+    blockId: "46924"
+});
 
-        const button = document.getElementById("watchButton");
-        const status = document.getElementById("status");
 
-        button.disabled = true;
-        status.innerText = "📺 Reklam hazırlanır...";
+async function watchAd() {
 
-        try {
+    const button = document.getElementById("watchButton");
+    const status = document.getElementById("status");
 
-        
-await AdController.show();
-const userId = tg.initDataUnsafe.user?.id;
+    button.disabled = true;
 
-if (userId) {
-    await fetch(
-        "https://reklam-botu-1.onrender.com/adsgram/reward?userid=" + userId
-    );
+    status.innerText = "📺 Reklam hazırlanır...";
+
+    try {
+
+        // Reklamı göstər
+        await AdController.show();
+
+        // Reklam uğurla sona çatdı
+        status.innerText = "✅ Reklam tamamlandı!";
+
+        // Telegram istifadəçi ID-si
+        const userId = tg.initDataUnsafe.user?.id;
+
+        // Serverə reward göndər
+        if (userId) {
+
+            fetch(
+                "https://reklam-botu-1.onrender.com/adsgram/reward?userid=" + userId,
+                {
+                    method: "GET",
+                    mode: "no-cors"
+                }
+            ).catch(error => {
+                console.log("Reward server xətası:", error);
+            });
+
+        }
+
+        setTimeout(() => {
+            status.innerText = "";
+        }, 3000);
+
+    } catch (error) {
+
+        console.log("AdsGram xətası:", error);
+
+        status.innerText =
+            "❌ Reklam göstərilmədi. Bir az sonra yenidən yoxla.";
+
+    } finally {
+
+        button.disabled = false;
+
+    }
 }
 
-// Reklam son tamamlandı
-status.daxiliMətn = "✅ Reklam tamamlandı";
-            // Reklam sona qədər tamamlandı
-            status.innerText = "✅ Reklam tamamlandı!";
-
-            setTimeout(() => {
-                status.innerText = "";
-            }, 3000);
-
-        } catch (error) {
-
-            console.log(error);
-
-            status.innerText =
-                "❌ Reklam göstərilmədi. Bir az sonra yenidən yoxla.";
-
-        } finally {
-
-            button.disabled = false;
-        }
-    }
 </script>
 
 </body>
+
 </html>
