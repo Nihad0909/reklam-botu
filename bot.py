@@ -84,7 +84,19 @@ def adsgram_reward():
     db.commit()
 
     return "OK", 200
+@app.get("/user/balance")
+def user_balance():
+    user_id = request.args.get("userid", type=int)
 
+    if not user_id:
+        return {"error": "Missing userid"}, 400
+
+    balance, ads_today = get_user(user_id)
+
+    return {
+        "balance": balance,
+        "ads_today": ads_today
+    }, 200
 # =========================
 # USER DATA
 # =========================
