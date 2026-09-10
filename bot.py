@@ -153,7 +153,7 @@ def main_menu():
             [
                 InlineKeyboardButton(
                     text="📺 Reklama bax +0.05 AZN",
-                    callback_data="watch_ad"
+                    url="https://t.me/reklamqazan_bot/reklamqazan"
                 )
             ],
 
