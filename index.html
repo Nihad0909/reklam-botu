@@ -162,8 +162,7 @@ async function watchAd() {
         console.log("AdsGram xətası:", error);
 
         status.innerText =
-            "❌ Reklam göstərilmədi. Bir az sonra yenidən yoxla.";
-
+             "❌ " + JSON.stringify(error);
     } finally {
 
         button.disabled = false;
