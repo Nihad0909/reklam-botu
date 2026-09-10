@@ -129,7 +129,18 @@
         try {
 
             await AdController.show();
+await Reklam Nəzarətçisi.show();
 
+const userId = tg.initDataUnsafe.user?.id;
+
+if (userId) {
+    await fetch(
+        "https://reklam-botu-1.onrender.com/adsgram/reward?userid=" + userId
+    );
+}
+
+// Reklam son tamamlandı
+status.daxiliMətn = "✅ Reklam tamamlandı";
             // Reklam sona qədər tamamlandı
             status.innerText = "✅ Reklam tamamlandı!";
 
